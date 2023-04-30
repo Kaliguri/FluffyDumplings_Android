@@ -11,7 +11,7 @@ public class MealsListItem : MonoBehaviour
     private CookingController _cookingController;
     private bool _selected = false;
 
-    public void SetMealComponent(MealComponent mealComponent, CookingController cookingController)
+    public void SetMealComponent(MealComponent mealComponent, int number, CookingController cookingController)
     {
         _mealComponent = mealComponent;
         icon.sprite = _mealComponent.IconSprite;
@@ -22,18 +22,14 @@ public class MealsListItem : MonoBehaviour
 
     public void SelectMealComponent()
     {
-        
-        if (!_selected)
+        if(_cookingController.SelectMealComponent(_mealComponent, 1))
         {
-            _cookingController.SelectMealComponent(_mealComponent);
-            //TODO: selected meal component visualisation
-            icon.color = Color.yellow;
+            //TODO: successfull adding
         }
-        else
-        {
-            _cookingController.DeselectMealComponent(_mealComponent);
-            //TODO: deselected meal component visualisation
-            icon.color = Color.white;
-        }
+    }
+
+    public void DeselectMealComponent()
+    {
+        _cookingController.DeselectMealComponent(_mealComponent, 1);
     }
 }

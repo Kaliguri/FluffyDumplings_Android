@@ -6,8 +6,11 @@ public class CookingController : Controller
 {
     [SerializeField] private GameObject mealsListObj;
     [SerializeField] private Transform mealsListContainer;
+    private MealData _mealData;
     private List<MealComponent> _mealComponents;
+    private List<int> _mealComponentsNumbers;
     private MealType _mealType;
+    private MealCookingType _mealCookingType;
 
     private void Start()
     {
@@ -16,20 +19,48 @@ public class CookingController : Controller
     public void ShowMealComponents()
     {
         _mealComponents = new List<MealComponent>();
-        foreach(var mealComponent in MealInfo.MealComponents)
+        _mealComponentsNumbers = new List<int>();
+        _mealData = MealInfo.MealData;
+        for(int i = 0; i < _mealData.MealComponents.Count; i++)
         {
-            Instantiate(mealsListObj, mealsListContainer).GetComponent<MealsListItem>().SetMealComponent(mealComponent, this);
+            Instantiate(mealsListObj, mealsListContainer).GetComponent<MealsListItem>()
+                .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentNumbers[i], this);
         }
     }
 
-    public void SelectMealComponent(MealComponent mealComponent)
+    public bool SelectMealComponent(MealComponent mealComponent, int number)
     {
-        _mealComponents.Add(mealComponent);
+        if (_mealData.MealComponentNumbers[_mealData.MealComponents.IndexOf(mealComponent)] - number >= 0)
+        {
+            if (_mealComponents.Contains(mealComponent))
+            {
+                _mealComponentsNumbers[_mealComponents.IndexOf(mealComponent)] += number;
+            }
+            else
+            {
+                _mealComponents.Add(mealComponent);
+                _mealComponentsNumbers.Add(number);
+            }
+            return true;
+        }
+        return false;
     }
 
-    public void DeselectMealComponent(MealComponent mealComponent)
+    public void DeselectMealComponent(MealComponent mealComponent, int number)
     {
-        _mealComponents.Remove(mealComponent);
+        if (_mealComponents.Contains(mealComponent))
+        {
+            int index = _mealComponents.IndexOf(mealComponent);
+            if (_mealComponentsNumbers[index] > 1)
+            {
+                _mealComponentsNumbers[index] -= number;
+            }
+            else
+            {
+                _mealComponents.RemoveAt(index);
+                _mealComponentsNumbers.RemoveAt(index);
+            }
+        }
     }
 
     public void SelectMealType(MealType mealType)
@@ -37,9 +68,14 @@ public class CookingController : Controller
         _mealType = mealType;
     }
 
+    public void SelectCookingType(MealCookingType mealCookingType)
+    {
+        _mealCookingType = mealCookingType;
+    }
+
     public void StartCooking()
     {
-        MealInfo.UseMealComponents(_mealComponents);
+        MealInfo.UseMealComponents(_mealComponents, _mealComponentsNumbers);
         //TODO: cooking game
     }
 }

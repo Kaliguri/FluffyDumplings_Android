@@ -23,7 +23,7 @@ public class MealInfo
         }
     }
 
-    public static void UseMealComponents(List<MealComponent> usedMealComponents)
+    public static void UseMealComponents(List<MealComponent> usedMealComponents, List<int> usedMealComponentsNumbers)
     {
         MealData mealData = MealData;
         for (int i = 0; i < mealData.MealComponents.Count; i++)
