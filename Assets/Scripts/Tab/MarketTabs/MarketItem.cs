@@ -14,7 +14,7 @@ public class MarketItem : MonoBehaviour
 
     public void SetUpItem(int currentNumber, Item item, FoodMarketTab foodMarketTab)
     {
-        Icon.sprite = item.Icon;
+        Icon.sprite = item.IconSprite;
         CountText.text = $"{currentNumber}/{item.MaxNumber}";
         _foodMarketTab= foodMarketTab;
     }

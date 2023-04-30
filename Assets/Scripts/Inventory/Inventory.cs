@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
             _itemInHand = value;
             if (_itemInHand != null)
             {
-                itemInHandIcon.sprite = _itemInHand.Icon;
+                itemInHandIcon.sprite = _itemInHand.IconSprite;
                 itemInHandIcon.color = Color.white;
             }
             else
@@ -32,8 +32,8 @@ public class Inventory : MonoBehaviour
     public void DropItem()
     {
         GameObject droppedItem = Instantiate(this.droppedItemPrefab, this.transform.position, this.transform.rotation);
-        droppedItem.name = ItemInHand.Namespace;
-        droppedItem.GetComponent<SpriteRenderer>().sprite = ItemInHand.Icon;
+        droppedItem.name = ItemInHand.Label;
+        droppedItem.GetComponent<SpriteRenderer>().sprite = ItemInHand.IconSprite;
         ItemInHand = null;
     }
 

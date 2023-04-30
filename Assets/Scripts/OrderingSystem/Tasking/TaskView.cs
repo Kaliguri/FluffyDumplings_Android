@@ -41,10 +41,10 @@ public class TaskView : MonoBehaviour
                 var meal = _orderList[i];
                 if(i!=0)
                     AddHeaderSprites(plusSprite);
-                AddHeaderSprites(meal.Icon);
+                AddHeaderSprites(meal.IconSprite);
                 //
                 Transform newLineTransform = Instantiate(linePref, bigRecipeGroup).transform;
-                AddSpriteToParent(meal.Icon, newLineTransform);
+                AddSpriteToParent(meal.IconSprite, newLineTransform);
                 AddSpriteToParent(equalsSprite, newLineTransform);
                 foreach (var mealComponent in meal.MealComponents)
                 {

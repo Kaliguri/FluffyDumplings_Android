@@ -19,7 +19,7 @@ public class DragableMealComponent : MonoBehaviour
 
     public void DragSprite()
     {
-        ChangeSprite(Comp.Icon);
+        ChangeSprite(Comp.IconSprite);
     }
 
     public void BoardSprite()

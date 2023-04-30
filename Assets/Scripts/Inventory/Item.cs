@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItem", menuName = "ScriptableObjects/Item")]
 public class Item : ScriptableObject
 {
-    public string Namespace;
+    public string Label;
     public Sprite Sprite;
-    public Sprite Icon;
+    public Sprite IconSprite;
     public int Price;
     public int MaxNumber;
 }
