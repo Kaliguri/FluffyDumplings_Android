@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewComponent", menuName = "ScriptableObjects/CookingSystem/Component")]
 public class MealComponent : Item
 {
-
+    public MealComponentTypes MealComponentType;
 }

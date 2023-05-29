@@ -1,5 +1,7 @@
 public enum MealComponentTypes
 {
     Flare,
-    Meat
+    Filling,
+    Spice,
+    Sauce
 }

@@ -31,18 +31,18 @@ public class MealInfo
             if (usedMealComponents.Contains(mealData.MealComponents[i]))
             {
                 //TODO: perhaps it`s better to use ListHelper
-                if (mealData.MealComponentNumbers[i] > 1)
+                if (mealData.MealComponentsNumbers[i] > 1)
                 {
-                    mealData.MealComponentNumbers[i]--;
+                    mealData.MealComponentsNumbers[i]--;
                 }
                 else
                 {
                     mealData.MealComponents.RemoveAt(i);
-                    mealData.MealComponentNumbers.RemoveAt(i);
+                    mealData.MealComponentsNumbers.RemoveAt(i);
                 }
             }
         }
-        MealDataJsonisable = new MealDataJsonisable(GetMealComponentsJsonisable(mealData.MealComponents), mealData.MealComponentNumbers);
+        MealDataJsonisable = new MealDataJsonisable(GetMealComponentsJsonisable(mealData.MealComponents), mealData.MealComponentsNumbers);
     }
 
     public static void AddMealComponent(List<MealComponent> mealComponents, List<int> numbers)

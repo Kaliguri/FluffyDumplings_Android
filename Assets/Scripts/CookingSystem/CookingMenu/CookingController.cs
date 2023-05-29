@@ -5,7 +5,11 @@ using UnityEngine;
 public class CookingController : Controller
 {
     [SerializeField] private GameObject mealsListObj;
-    [SerializeField] private Transform mealsListContainer;
+    [SerializeField] private Transform fillingsListContainer;
+    [SerializeField] private Transform spicesListContainer;
+    [SerializeField] private Transform saucesListContainer;
+    [Space]
+    [SerializeField] private SliderMove sliderMove;
     private MealData _mealData;
     private List<MealComponent> _mealComponents;
     private List<int> _mealComponentsNumbers;
@@ -23,14 +27,32 @@ public class CookingController : Controller
         _mealData = MealInfo.MealData;
         for(int i = 0; i < _mealData.MealComponents.Count; i++)
         {
-            Instantiate(mealsListObj, mealsListContainer).GetComponent<MealsListItem>()
-                .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentNumbers[i], this);
+            switch (_mealComponents[i].MealComponentType)
+            {
+                case MealComponentTypes.Flare:
+                    Instantiate(mealsListObj, fillingsListContainer).GetComponent<MealsListItem>()
+                        .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
+                    break;
+                case MealComponentTypes.Filling:
+                    Instantiate(mealsListObj, fillingsListContainer).GetComponent<MealsListItem>()
+                        .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
+                    break;
+                case MealComponentTypes.Spice:
+                    Instantiate(mealsListObj, spicesListContainer).GetComponent<MealsListItem>()
+                        .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
+                    break;
+                case MealComponentTypes.Sauce:
+                    Instantiate(mealsListObj, saucesListContainer).GetComponent<MealsListItem>()
+                        .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
+                    break;
+            }
+            
         }
     }
 
     public bool SelectMealComponent(MealComponent mealComponent, int number)
     {
-        if (_mealData.MealComponentNumbers[_mealData.MealComponents.IndexOf(mealComponent)] - number >= 0)
+        if (_mealData.MealComponentsNumbers[_mealData.MealComponents.IndexOf(mealComponent)] - number >= 0)
         {
             if (_mealComponents.Contains(mealComponent))
             {
@@ -76,6 +98,12 @@ public class CookingController : Controller
     public void StartCooking()
     {
         MealInfo.UseMealComponents(_mealComponents, _mealComponentsNumbers);
-        //TODO: cooking game
+        //TODO:calculate difficulty
+        sliderMove.StartGame(new float[]{ 0.4f, 0.6f }, new float[]{ 0.23f, 0.77f }, EndGame);
+    }
+
+    public void EndGame(CookingResult cookingResult)
+    {
+        //TODO: define product
     }
 }

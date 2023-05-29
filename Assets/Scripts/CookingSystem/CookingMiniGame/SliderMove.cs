@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,24 @@ using UnityEngine.UI;
 
 public class SliderMove : MonoBehaviour
 {
-    float progress = 0;
     public Slider slider;
 
-    private float slider_step = 0.01f;
+    private float slider_step = 1;
     private bool slider_edge = false;
 
     private bool isMoving = true;
 
     private float[] red_border = { 0.4f, 0.6f };
     private float[] yellow_border = { 0.23f, 0.77f };
+
+    public Action<CookingResult> resultEvent;
+
+    public void StartGame(float[] red_border, float[] yellow_border, Action<CookingResult> resultEvent)
+    {
+        this.red_border = red_border;
+        this.yellow_border = yellow_border;
+        this.resultEvent = resultEvent;
+    }
 
     private void UpdateProgress()
     {
@@ -29,39 +38,35 @@ public class SliderMove : MonoBehaviour
 
         if (slider_edge == false)
         {
-            progress += 0.01f;
+            slider.value += slider_step * Time.deltaTime;
         }
         else
         {
-            progress -= 0.01f;
+            slider.value -= slider_step * Time.deltaTime;
         }
-        
-        slider.value = progress;
     }
 
     // 0 - плохо
     // 1 - нормально
     // 2 - отлично
-    public void GetScore()
+    public void CompleteGame()
     {
-        int result;
-
         float score = slider.value;
         isMoving = false;
 
         if ((score >= red_border[0]) && (score <= red_border[1]))
         {
-            result = 2;
+            resultEvent?.Invoke(CookingResult.Perfect);
             Debug.Log("Отлично");
         }
         else if ((score >= yellow_border[0]) && (score <= yellow_border[1]))
         {
-            result = 1;
+            resultEvent?.Invoke(CookingResult.Good);
             Debug.Log("Нормально");
         }
         else
         {
-            result = 0;
+            resultEvent?.Invoke(CookingResult.Bad);
             Debug.Log("Плохо :(");
         }
     }
@@ -73,4 +78,11 @@ public class SliderMove : MonoBehaviour
             UpdateProgress();
         }
     }
+}
+
+public enum CookingResult
+{
+    Bad,
+    Good,
+    Perfect
 }
