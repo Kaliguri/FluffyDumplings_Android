@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class CookingController : Controller
 {
+    [SerializeField] private Meal testMeal;
+    [Space]
+    [SerializeField] private CookingResultNotificator cookingResultNotificator;
+    [Space]
     [SerializeField] private GameObject mealsListObj;
     [SerializeField] private Transform fillingsListContainer;
     [SerializeField] private Transform spicesListContainer;
@@ -15,10 +20,19 @@ public class CookingController : Controller
     private List<int> _mealComponentsNumbers;
     private MealType _mealType;
     private MealCookingType _mealCookingType;
+    private Meal _currentMeal;
 
     private void Start()
     {
-        OnActivate.AddListener(ShowMealComponents);
+        //TODO:Show when activates
+        //OnActivate.AddListener(ShowMealComponents);
+        MealDataJsonisable jsonisable = new MealDataJsonisable();
+        jsonisable.MealComponents = new List<string>() { "meat_beef", "flour", "salt", "pepper", "sourCream"};
+        jsonisable.MealComponentsNumbers = new List<int>() { 20, 20, 20, 20, 20 };
+        File.WriteAllText($"{Application.persistentDataPath}/Info/MealDataJsonisable.json", JsonUtility.ToJson(jsonisable));
+        Debug.Log(Application.persistentDataPath);
+
+        ShowMealComponents();
     }
     public void ShowMealComponents()
     {
@@ -27,7 +41,7 @@ public class CookingController : Controller
         _mealData = MealInfo.MealData;
         for(int i = 0; i < _mealData.MealComponents.Count; i++)
         {
-            switch (_mealComponents[i].MealComponentType)
+            /*switch (_mealComponents[i].MealComponentType)
             {
                 case MealComponentTypes.Flare:
                     Instantiate(mealsListObj, fillingsListContainer).GetComponent<MealsListItem>()
@@ -45,8 +59,9 @@ public class CookingController : Controller
                     Instantiate(mealsListObj, saucesListContainer).GetComponent<MealsListItem>()
                         .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
                     break;
-            }
-            
+            }*/
+            Instantiate(mealsListObj, fillingsListContainer).GetComponent<MealsListItem>()
+                        .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
         }
     }
 
@@ -98,12 +113,13 @@ public class CookingController : Controller
     public void StartCooking()
     {
         MealInfo.UseMealComponents(_mealComponents, _mealComponentsNumbers);
-        //TODO:calculate difficulty
+        //TODO:calculate difficulty and define meal
+        _currentMeal = testMeal;
         sliderMove.StartGame(new float[]{ 0.4f, 0.6f }, new float[]{ 0.23f, 0.77f }, EndGame);
     }
 
     public void EndGame(CookingResult cookingResult)
     {
-        //TODO: define product
+        cookingResultNotificator.ShowResult(_currentMeal, cookingResult);
     }
 }

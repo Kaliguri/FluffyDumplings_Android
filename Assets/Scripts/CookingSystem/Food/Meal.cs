@@ -6,5 +6,6 @@ using UnityEngine;
 public class Meal : Item
 {
     public MealType Type;
+    public MealCookingType MealCookingType;
     public List<MealComponent> MealComponents;
 }

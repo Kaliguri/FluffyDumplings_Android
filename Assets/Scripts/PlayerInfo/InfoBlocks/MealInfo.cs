@@ -63,7 +63,15 @@ public class MealInfo
     {
         //TODO: types of meal components (fillings, dough etc)
         List<MealComponent> result = new List<MealComponent>();
-        result.AddRange(MealComponents.Select(m => { return Resources.Load<MealComponent>($"/MealComponents/{m}"); }).ToList());
+        Debug.Log(mealComponents.Count);
+        foreach (var mealComponent in mealComponents)
+        {
+            Debug.Log(mealComponent);
+            MealComponent newComponent = Resources.Load<MealComponent>($"MealComponents/{mealComponent}");
+            Debug.Log(newComponent);
+            result.Add(newComponent);
+        }
+        //result.AddRange(MealComponents.Select(m => { return Resources.Load<MealComponent>($"/MealComponents/{m}"); }).ToList());
         return result;
     }
 
@@ -76,8 +84,11 @@ public class MealInfo
     {
         get
         {
-            CheckFile();
-            return JsonUtility.FromJson<MealDataJsonisable>(File.ReadAllText($"{Application.persistentDataPath}/Info/MealDataJsonisable.json"));
+            //CheckFile();
+            string json = File.ReadAllText($"{Application.persistentDataPath}/Info/MealDataJsonisable.json");
+
+            Debug.Log(json);
+            return JsonUtility.FromJson<MealDataJsonisable>(json);
         }
         set
         {

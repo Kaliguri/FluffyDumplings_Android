@@ -11,7 +11,7 @@ public class SliderMove : MonoBehaviour
     private float slider_step = 1;
     private bool slider_edge = false;
 
-    private bool isMoving = true;
+    private bool isMoving = false;
 
     private float[] red_border = { 0.4f, 0.6f };
     private float[] yellow_border = { 0.23f, 0.77f };
@@ -78,11 +78,4 @@ public class SliderMove : MonoBehaviour
             UpdateProgress();
         }
     }
-}
-
-public enum CookingResult
-{
-    Bad,
-    Good,
-    Perfect
 }
