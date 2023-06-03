@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SliderMove : MonoBehaviour
 {
+    [SerializeField] private Button completeButton;
     public Slider slider;
 
     private float slider_step = 1;
@@ -23,6 +24,8 @@ public class SliderMove : MonoBehaviour
         this.red_border = red_border;
         this.yellow_border = yellow_border;
         this.resultEvent = resultEvent;
+        isMoving = true;
+        completeButton.onClick.AddListener(CompleteGame);
     }
 
     private void UpdateProgress()
@@ -53,6 +56,7 @@ public class SliderMove : MonoBehaviour
     {
         float score = slider.value;
         isMoving = false;
+        completeButton.onClick.RemoveListener(CompleteGame);
 
         if ((score >= red_border[0]) && (score <= red_border[1]))
         {

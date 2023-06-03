@@ -4,8 +4,16 @@ using System.IO;
 using UnityEngine;
 using System.Linq;
 
-public class MealInfo
+public class MealInfo: MonoBehaviour
 {
+    [SerializeField] private List<MealComponent> mealComponents;
+    private static List<MealComponent> s_mealComponents;
+
+    private void Start()
+    {
+        s_mealComponents = mealComponents;
+    }
+
     public static List<MealComponent> MealComponents
     {
         get
@@ -63,28 +71,38 @@ public class MealInfo
     {
         //TODO: types of meal components (fillings, dough etc)
         List<MealComponent> result = new List<MealComponent>();
-        Debug.Log(mealComponents.Count);
         foreach (var mealComponent in mealComponents)
         {
-            Debug.Log(mealComponent);
             MealComponent newComponent = Resources.Load<MealComponent>($"MealComponents/{mealComponent}");
-            Debug.Log(newComponent);
             result.Add(newComponent);
         }
-        //result.AddRange(MealComponents.Select(m => { return Resources.Load<MealComponent>($"/MealComponents/{m}"); }).ToList());
         return result;
+        /*List<MealComponent> result = new List<MealComponent>();
+        foreach(var mealComponent in mealComponents)
+        {
+            result.Add(s_mealComponents.Where(m => m.Label == mealComponent).Single());
+        }
+        return result;*/
     }
 
     private static List<string> GetMealComponentsJsonisable(List<MealComponent> mealComponents)
     {
-        return mealComponents.Select(m => { return m.Label; }).ToList();
+        Debug.Log("get jsonisable");
+        List<string> result = new List<string>();
+        foreach(var m in mealComponents)
+        {
+            Debug.Log(m);
+            result.Add(m.name);
+        }
+        return result;
+        //return mealComponents.Select(m => { return m.Label; }).ToList();
     }
 
     private static MealDataJsonisable MealDataJsonisable
     {
         get
         {
-            //CheckFile();
+            CheckFile();
             string json = File.ReadAllText($"{Application.persistentDataPath}/Info/MealDataJsonisable.json");
 
             Debug.Log(json);

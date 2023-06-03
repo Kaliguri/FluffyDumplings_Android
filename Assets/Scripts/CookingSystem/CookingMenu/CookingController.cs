@@ -21,21 +21,35 @@ public class CookingController : Controller
     private MealType _mealType;
     private MealCookingType _mealCookingType;
     private Meal _currentMeal;
+    private bool _isGameInProgress = false;
 
     private void Start()
     {
         //TODO:Show when activates
-        //OnActivate.AddListener(ShowMealComponents);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Test();
+        }
+    }
+
+    private void Test()
+    {
         MealDataJsonisable jsonisable = new MealDataJsonisable();
-        jsonisable.MealComponents = new List<string>() { "meat_beef", "flour", "salt", "pepper", "sourCream"};
+        jsonisable.MealComponents = new List<string>() { "meat_beef", "flour", "salt", "pepper", "sourCream" };
         jsonisable.MealComponentsNumbers = new List<int>() { 20, 20, 20, 20, 20 };
         File.WriteAllText($"{Application.persistentDataPath}/Info/MealDataJsonisable.json", JsonUtility.ToJson(jsonisable));
         Debug.Log(Application.persistentDataPath);
 
         ShowMealComponents();
     }
+
     public void ShowMealComponents()
     {
+        ClearMealComponents();
         _mealComponents = new List<MealComponent>();
         _mealComponentsNumbers = new List<int>();
         _mealData = MealInfo.MealData;
@@ -62,6 +76,19 @@ public class CookingController : Controller
             }*/
             Instantiate(mealsListObj, fillingsListContainer).GetComponent<MealsListItem>()
                         .SetMealComponent(_mealData.MealComponents[i], _mealData.MealComponentsNumbers[i], this);
+        }
+    }
+
+    public void ClearMealComponents()
+    {
+        List<GameObject> childs = new List<GameObject>();
+        for(int i = 0; i < fillingsListContainer.childCount; i++)
+        {
+            childs.Add(fillingsListContainer.GetChild(i).gameObject);
+        }
+        foreach(var child in childs)
+        {
+            Destroy(child);
         }
     }
 
@@ -112,14 +139,20 @@ public class CookingController : Controller
 
     public void StartCooking()
     {
-        MealInfo.UseMealComponents(_mealComponents, _mealComponentsNumbers);
-        //TODO:calculate difficulty and define meal
-        _currentMeal = testMeal;
-        sliderMove.StartGame(new float[]{ 0.4f, 0.6f }, new float[]{ 0.23f, 0.77f }, EndGame);
+        if (!_isGameInProgress)
+        {
+            MealInfo.UseMealComponents(_mealComponents, _mealComponentsNumbers);
+            ShowMealComponents();
+            //TODO:calculate difficulty and define meal
+            _currentMeal = testMeal;
+            sliderMove.StartGame(new float[] { 0.4f, 0.6f }, new float[] { 0.23f, 0.77f }, EndGame);
+            _isGameInProgress = true;
+        }
     }
 
     public void EndGame(CookingResult cookingResult)
     {
         cookingResultNotificator.ShowResult(_currentMeal, cookingResult);
+        _isGameInProgress = false;
     }
 }
