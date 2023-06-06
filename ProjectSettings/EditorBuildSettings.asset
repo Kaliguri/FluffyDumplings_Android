@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/Old/MainScene.unity
     guid: 228c248c493d20b4d8aacfcb5f9d5b65
+  - enabled: 1
+    path: Assets/Scenes/GameParts/CookingMinigame.unity
+    guid: 08701818e39b129488185957c4de3bf2
+  - enabled: 1
+    path: Assets/Scenes/GameParts/MainSceneTransfered.unity
+    guid: 81e582aaec5bea84dbe2c0b635fd32a0
   m_configObjects: {}

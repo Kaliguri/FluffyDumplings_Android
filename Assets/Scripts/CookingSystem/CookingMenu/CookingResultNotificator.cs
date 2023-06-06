@@ -11,7 +11,7 @@ public class CookingResultNotificator : MonoBehaviour
 
     public void ShowResult(Meal resultMeal, CookingResult result)
     {
-        mealImage.sprite = resultMeal.IconSprite;
+        //mealImage.sprite = resultMeal.IconSprite;
         mealName.text = resultMeal.Label;
 
         switch (result)

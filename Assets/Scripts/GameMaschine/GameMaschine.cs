@@ -40,8 +40,8 @@ public class GameMaschine : MonoBehaviour
 
     public void InitializaeGame()
     {
-        GetComponent<SingletoneInfoContainer>().LoadInfo();
-        carsSpawner.StartSpawning();
+        //GetComponent<SingletoneInfoContainer>().LoadInfo();
+        //carsSpawner.StartSpawning();
     }
 
     public void StartPreparing()

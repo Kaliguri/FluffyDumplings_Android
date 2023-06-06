@@ -24,19 +24,19 @@ public class ConsumerController : MonoBehaviour
 
     private void Update()
     {
-        _nextConsumerTimer -= Time.deltaTime;
+        /*_nextConsumerTimer -= Time.deltaTime;
         if(_nextConsumerTimer < 0 && _consumersQueue.Count < SingletoneInfoContainer.CafeInfo.Capacity)
         {
             GenerateConsumer();
-        }
+        }*/
     }
 
     public void StartConsuming()
     {
-        RandomiseNextConsumerTime();
+        /*RandomiseNextConsumerTime();
         _storageAfterConsuming = new List<MealComponent>(SingletoneInfoContainer.Storage.ComponentsInStorage);
         _storageAfterConsumingNumbers = new List<int>(SingletoneInfoContainer.Storage.ComponentsInStorageNumbers);
-        enabled = true;
+        enabled = true;*/
     }
 
     public void StopConsuming() 

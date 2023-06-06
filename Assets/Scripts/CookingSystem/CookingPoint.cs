@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CookingPoint : MonoBehaviour
 {
@@ -8,6 +9,6 @@ public class CookingPoint : MonoBehaviour
 
     public void StartCooking()
     {
-        cookingController.Activate();
+        SceneManager.LoadScene("CookingMinigame");
     }
 }
