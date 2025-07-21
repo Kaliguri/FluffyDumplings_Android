@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class MovementController : Controller
 {
+    [SerializeField] private Joystick movementJoystick;
     private TaskPoint _taskPoint;
     private float _speed = 1;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        // Joystick movement
+        if (movementJoystick != null)
         {
-            transform.Translate(Vector2.up * _speed * Time.deltaTime);
+            Vector2 moveDirection = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
+            transform.Translate(moveDirection * _speed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector2.left * _speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector2.down * _speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector2.right * _speed * Time.deltaTime);
-        }
+
+        // Keep space key for interactions
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(_taskPoint != null)
