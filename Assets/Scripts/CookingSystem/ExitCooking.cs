@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class ExitCooking : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private string mainSceneName;
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MainSceneTransfered");
+            ExitMinigame();
         }
+    }
+
+    public void ExitMinigame()
+    {
+        SceneManager.LoadScene(mainSceneName);
     }
 }

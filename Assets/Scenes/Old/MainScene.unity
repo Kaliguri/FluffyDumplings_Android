@@ -8621,15 +8621,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380829438}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.7484846, y: -2.3938894, z: -0.032487996}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -6.216, y: -3.176, z: -0.032487996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1787029991}
   m_Father: {fileID: 1970800346}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1380829444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8691,7 +8691,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380829438}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -9812,7 +9812,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.63102114}
+  m_Offset: {x: -0.018338203, y: 0.20006987}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9823,7 +9823,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.2979577}
+  m_Size: {x: 1.3900299, y: 2.3432436}
   m_EdgeRadius: 0
 --- !u!50 &1644025599
 Rigidbody2D:
@@ -11541,6 +11541,10 @@ PrefabInstance:
     - target: {fileID: 779906707997570446, guid: fbce4e33d41a99e428eb633f0e696a08, type: 3}
       propertyPath: m_Name
       value: Movement Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 779906707997570446, guid: fbce4e33d41a99e428eb633f0e696a08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459639527618337619, guid: fbce4e33d41a99e428eb633f0e696a08, type: 3}
       propertyPath: m_Pivot.x
